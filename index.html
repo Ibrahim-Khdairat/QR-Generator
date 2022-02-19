@@ -40,7 +40,15 @@
                 if (website) {
                     let qrcodeContainer = document.getElementById("qrcode");
                     qrcodeContainer.innerHTML = "";
-                    let QR_Code = new QRCode(qrcodeContainer, website);
+                    let QR_Code = new QRCode( qrcodeContainer, {
+                    text: website,
+                      width: 128,
+                      height: 128,
+                      colorDark: "black",
+                      colorLight: "white",
+                      correctLevel: QRCode.CorrectLevel.H
+                    });
+
 
                     /*With some styles*/
                     // let qrcodeContainer2 = document.getElementById("qrcode-2");
@@ -54,12 +62,12 @@
                     //   correctLevel: QRCode.CorrectLevel.H
                     // });
                     document.getElementById("qrcode-container").style.display = "block";
-                    // getSrc();
+                  
                     let src = qrcodeContainer.children[0].toDataURL("image/png");
-                    console.log(src);
                     if (src) {
                         let download = document.getElementById("download");
                         download.href = src;
+                        
                         download.download = "qrcode.png";
                         download.removeAttribute("hidden");
                     }
@@ -67,15 +75,6 @@
                     alert("Please enter a valid URL");
                 }
             }
-
-            function getSrc() {
-                let qrcodeContainer = document.getElementById("qrcode");
-
-            }
-
-            // console.log(src);
-            // <img src={src} alt = "QR_Code"></img>
-            // <a href={src} download >download</a>
 
         </script>
     </div>
