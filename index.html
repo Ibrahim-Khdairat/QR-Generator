@@ -1,41 +1,85 @@
-
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="index.css">
-<title>Title of the document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
 </head>
 
 <body>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> 
+    <div class="form">
+        <h1>QR Code Generator</h1>
+        <form>
+            <input type="url" id="website" name="website" placeholder="https://webisora.com" required />
+            <button type="button" onclick="generateQRCode()">
+                Generate QR Code
+            </button>
+        </form>
 
-<div class="form">
+        <div id="qrcode-container">
+            <div id="qrcode" class="qrcode"></div>
+            <!-- <h4>With some styles</h4>
+    <div id="qrcode-2" class="qrcode"></div> -->
 
-<h1>QR Code using qrcodejs</h1> 
+            <a download hidden id="download">
+                Download <img src="download.png" alt="download"/>
+            </a>
+        </div>
 
-<form> 
+        <script type="text/javascript">
+            function generateQRCode() {
+                let website = document.getElementById("website").value;
+                if (website) {
+                    let qrcodeContainer = document.getElementById("qrcode");
+                    qrcodeContainer.innerHTML = "";
+                    let QR_Code = new QRCode(qrcodeContainer, website);
 
-<input type="url" id="website" name="website" placeholder="https://webisora.com" required />
+                    /*With some styles*/
+                    // let qrcodeContainer2 = document.getElementById("qrcode-2");
+                    // qrcodeContainer2.innerHTML = "";
+                    // new QRCode(qrcodeContainer2, {
+                    //   text: website,
+                    //   width: 128,
+                    //   height: 128,
+                    //   colorDark: "#5868bf",
+                    //   colorLight: "#ffffff",
+                    //   correctLevel: QRCode.CorrectLevel.H
+                    // });
+                    document.getElementById("qrcode-container").style.display = "block";
+                    // getSrc();
+                    let src = qrcodeContainer.children[0].toDataURL("image/png");
+                    console.log(src);
+                    if (src) {
+                        let download = document.getElementById("download");
+                        download.href = src;
+                        download.download = "qrcode.png";
+                        download.removeAttribute("hidden");
+                    }
+                } else {
+                    alert("Please enter a valid URL");
+                }
+            }
 
-<button type="button" onclick="generateQRCode()"> Generate QR Code </button> 
+            function getSrc() {
+                let qrcodeContainer = document.getElementById("qrcode");
 
-</form> 
+            }
 
-<div id="qrcode-container">
+            // console.log(src);
+            // <img src={src} alt = "QR_Code"></img>
+            // <a href={src} download >download</a>
 
-<div id="qrcode" class="qrcode">
+        </script>
+    </div>
 
-</div>
+</body>
 
-<h4>With some styles</h4>
-
-<div id="qrcode-2" class="qrcode">
-
-</div> 
-
-</div> 
+</html>
